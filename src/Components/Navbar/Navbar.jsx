@@ -3,13 +3,22 @@ import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import authActions from "../../store/AuthSlice";
+import cartActions from "../../store/cartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const totalItemsInCart = useSelector((state) => state.cart.totalQuantity);
+
   const dispatch = useDispatch();
   //Logout
   const logoutHandler = () => {
     dispatch(authActions.logout());
+    dispatch(cartActions.emptyCart());
+  };
+
+  //Show Cart Items
+  const handleShowCart = () => {
+    dispatch(cartActions.setShowCart());
   };
   return (
     <>
@@ -22,7 +31,7 @@ const Navbar = () => {
             <a href="/">shop</a>
           </div>
           <div className="cursor-pointer">
-            <a href="#">Pages</a>
+            <a href="/cart">cart</a>
           </div>
           <div className="cursor-pointer">
             <a href="#">Blog</a>
@@ -38,9 +47,9 @@ const Navbar = () => {
           <div className="cursor-pointer">
             <FaRegUser size={"1.5em"} />
           </div>
-          <div className="relative cursor-pointer">
+          <div className="relative cursor-pointer" onClick={handleShowCart}>
             <div className="absolute w-6 h-6  rounded-full flex items-center justify-center  -top-3 -right-3 bg-slate-400">
-              3
+              {totalItemsInCart}
             </div>
             <IoCartOutline size={"1.5em"} />
           </div>

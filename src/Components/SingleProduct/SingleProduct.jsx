@@ -2,6 +2,8 @@ import React from "react";
 import phone from "../../assets/phone.png";
 import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import cartActions from "../../store/cartSlice";
 
 const SingleProduct = ({
   productShortName,
@@ -10,6 +12,20 @@ const SingleProduct = ({
   productId,
   categoryName,
 }) => {
+  const dispatch = useDispatch();
+
+  //Adding product to cart
+  const addtoCardHandle = () => {
+    dispatch(
+      cartActions.addToCart({
+        id: productId,
+        name: productShortName,
+        price: productPrice,
+        image: productImageUrl,
+      })
+    );
+  };
+
   return (
     <>
       <div className="space-y-3">
@@ -29,7 +45,10 @@ const SingleProduct = ({
           </div>
           <div className="capitalize font-semibold">{productShortName}</div>
           <div className="text-sm font-semibold mt-2">{productPrice}</div>
-          <button className="  w-full uppercase bg-blue-600 text-xs text-white font-semibold px-8 py-4 mt-4 tracking-widest flex items-center justify-center gap-4 rounded-sm hover:bg-red-500 transition-all">
+          <button
+            className="  w-full uppercase bg-blue-600 text-xs text-white font-semibold px-8 py-4 mt-4 tracking-widest flex items-center justify-center gap-4 rounded-sm hover:bg-red-500 transition-all"
+            onClick={addtoCardHandle}
+          >
             add to cart <IoCartOutline size={"19px"} />
           </button>
         </div>

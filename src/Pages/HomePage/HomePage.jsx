@@ -3,12 +3,15 @@ import HeroImg from "../../assets/HeroImg.png";
 import "./HomePage.css";
 import SingleProduct from "../../Components/SingleProduct/SingleProduct";
 import AllProducts from "../../Components/AllProducts/AllProducts";
+import Cart from "../../Components/Cart/Cart";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const setShowCart = useSelector((state) => state.cart.showCart);
   return (
     <>
       <div>
-        <div className="w-full h-[100vh] HeroSection grid grid-cols-2">
+        <div className="w-full h-[100vh] HeroSection grid grid-cols-2 ">
           <div className=" flex flex-col items-center justify-center ">
             <div className="space-y-12">
               <div className="space-y-3">
@@ -36,6 +39,11 @@ const HomePage = () => {
           <div>
             <AllProducts />
           </div>
+          {setShowCart && (
+            <div className="fixed -top-2  left-0 right-0 m-auto bg-gray-100">
+              <Cart />
+            </div>
+          )}
         </div>
       </div>
     </>

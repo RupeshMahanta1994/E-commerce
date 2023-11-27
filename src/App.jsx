@@ -3,10 +3,10 @@ import "./App.css";
 import { HomePage, Login, Register } from "./Pages/index";
 import { Navbar, Footer } from "./Components/index";
 import { useSelector } from "react-redux";
+import Cart from "./Components/Cart/Cart";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  console.log(isLoggedIn);
   return (
     <>
       <BrowserRouter>
@@ -23,6 +23,7 @@ function App() {
           )}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
       </BrowserRouter>
